@@ -143,20 +143,20 @@ jobs:
       - name: Test backend
         if: needs.detect-changes.outputs.backend-changed == 'true'
         run: npx nx test nest_test --watchAll=false --coverage
+      
+      #- name: Upload frontend coverage
+      #  if: needs.detect-changes.outputs.frontend-changed == 'true'
+      #  uses: codecov/codecov-action@v5
+      #  with:
+      #    files: ./coverage/apps/frontend/lcov.info
+      #    flags: frontend
 
-      - name: Upload frontend coverage
-        if: needs.detect-changes.outputs.frontend-changed == 'true'
-        uses: codecov/codecov-action@v5
-        with:
-          files: ./coverage/apps/frontend/lcov.info
-          flags: frontend
-
-      - name: Upload backend coverage
-        if: needs.detect-changes.outputs.backend-changed == 'true'
-        uses: codecov/codecov-action@v5
-        with:
-          files: ./coverage/apps/backend/lcov.info
-          flags: backend
+      #- name: Upload backend coverage
+      #  if: needs.detect-changes.outputs.backend-changed == 'true'
+      #  uses: codecov/codecov-action@v5
+      #  with:
+      #    files: ./coverage/apps/backend/lcov.info
+      #    flags: backend
 
   build:
     runs-on: ubuntu-latest
