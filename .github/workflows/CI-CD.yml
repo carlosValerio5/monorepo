@@ -116,7 +116,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     needs: [detect-changes, setup]
-    if: needs.detect-changes.frontend-changed == 'true' || needs.detect-changes.backend-changed == 'true'
+    if: needs.detect-changes.outputs.frontend-changed == 'true' || needs.detect-changes.outputs.backend-changed == 'true'
     steps:
       - uses: actions/checkout@v4
 
@@ -152,7 +152,7 @@ jobs:
           flags: frontend
 
       - name: Upload backend coverage
-        if: needs.detect-changes.backend-changed == 'true'
+        if: needs.detect-changes.outputs.backend-changed == 'true'
         uses: codecov/codecov-actions@v3
         with:
           files: ./coverage/apps/backend/lcov.info
@@ -247,7 +247,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: [detect-changes, docker-build-push]
-    if: github.ref == 'refs/heads/main' && (needs.detect-changes.outputs.frontend-changed == 'true' || needs.detect-changes.backend-changed == 'true')
+    if: github.ref == 'refs/heads/main' && (needs.detect-changes.outputs.frontend-changed == 'true' || needs.detect-changes.outputs.backend-changed == 'true')
     environment: production
     strategy:
       matrix:
