@@ -146,14 +146,14 @@ jobs:
 
       - name: Upload frontend coverage
         if: needs.detect-changes.outputs.frontend-changed == 'true'
-        uses: codecov/codecov-actions@v3
+        uses: codecov/codecov-action@v5
         with:
           files: ./coverage/apps/frontend/lcov.info
           flags: frontend
 
       - name: Upload backend coverage
         if: needs.detect-changes.outputs.backend-changed == 'true'
-        uses: codecov/codecov-actions@v3
+        uses: codecov/codecov-action@v5
         with:
           files: ./coverage/apps/backend/lcov.info
           flags: backend
